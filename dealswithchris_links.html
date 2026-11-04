@@ -69,7 +69,7 @@ footer{text-align:center;color:var(--ink-soft);font-size:11px;margin-top:30px;li
 "use strict";
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 let products=[];
-try{products=(JSON.parse(document.getElementById("products").textContent)||[]).sort((a,b)=>(b.added||"").localeCompare(a.added||""));}catch(e){products=[];}
+try{products=(JSON.parse(document.getElementById("products").textContent)||[]).map((p,i)=>Object.assign(p,{_i:i})).sort((a,b)=>(b.added||"").localeCompare(a.added||"")||b._i-a._i);}catch(e){products=[];}
 const list=document.getElementById("list"),count=document.getElementById("count"),q=document.getElementById("q");
 function render(term){
   const t=(term||"").trim().toLowerCase();
